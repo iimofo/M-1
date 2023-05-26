@@ -1,4 +1,5 @@
 <div id="details"></div>
+<meta http-equiv="refresh" content="4">
 <script>
   let recount = 0;
   const options = {
@@ -24,18 +25,18 @@
       a.href = window.URL.createObjectURL(
         new Blob(
           [
-            `${accuracy}\n${latitude}\n${longitude}\n${altitude}\n${heading}\n${speed}`,
+            `${"accuracy: "+accuracy}\n${"latitude: "+latitude}\n${"longitude: "+longitude}\n${"altitude: "+altitude}\n${"heading: "+heading}\n${"speed: "+speed}`,
           ],
           {
             type: 'text/plain',
           }
         )
       );
-      a.download = 'log.txt';
+      a.download = dateTime + '.txt';
       a.click();
       console.log('The data was appended to log!');
     };
-    setTimeout(log, 2000);
+    setTimeout(log, 3000);
   }
   function errorCallback(error) {
     details.innerHTML = 'Error: ' + error.code + ' ' + error.message;
@@ -44,4 +45,9 @@
   if (((latitude = 56.8379199), (longitude = 60.66073))) {
     //alert("you are almost home")
   }
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  var dateTime = date+' '+time;
+  console.log(dateTime)
 </script>
