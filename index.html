@@ -1,30 +1,47 @@
-<div id = "details"></div>
+<div id="details"></div>
 <script>
-  var recount = 0
+  let recount = 0;
+  const options = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 0,
+  };
   navigator.geolocation.watchPosition(successCallback, errorCallback, options);
 
   function successCallback(position) {
-    const { accuracy, latitude, longitude, altitude, heading, speed } = position.coords;
+    const { accuracy, latitude, longitude, altitude, heading, speed } =
+      position.coords;
     recount++;
-    details.innerHTML = "Accuracy: " + accuracy+"<br>";
-    details.innerHTML += "Latitude: " + latitude+ " | Longitude: "+longitude+"<br>";
-    details.innerHTML += "Altitude: " + altitude+"<br>";
-    details.innerHTML += "Heading: " + heading+"<br>";
-    details.innerHTML += "Speed: " + speed+"<br>";
-    details.innerHTML += "Recount: " + recount+"<br>";
+    details.innerHTML = 'Accuracy: ' + accuracy + '<br>';
+    details.innerHTML +=
+      'Latitude: ' + latitude + ' | Longitude: ' + longitude + '<br>';
+    details.innerHTML += 'Altitude: ' + altitude + '<br>';
+    details.innerHTML += 'Heading: ' + heading + '<br>';
+    details.innerHTML += 'Speed: ' + speed + '<br>';
+    details.innerHTML += 'Recount: ' + recount + '<br>';
+    const log = function () {
+      let a = document.createElement('a');
+      a.href = window.URL.createObjectURL(
+        new Blob(
+          [
+            `${accuracy}\n${latitude}\n${longitude}\n${altitude}\n${heading}\n${speed}`,
+          ],
+          {
+            type: 'text/plain',
+          }
+        )
+      );
+      a.download = 'log.txt';
+      a.click();
+      console.log('The data was appended to log!');
+    };
+    setTimeout(log, 2000);
   }
-  function errorCallback(error){
-    details.innerHTML = "Error: " + error.code + " " + error.message;
+  function errorCallback(error) {
+    details.innerHTML = 'Error: ' + error.code + ' ' + error.message;
   }
-  var options = {
-    enableHighAccuracy: false,
-    timeout: 5000,
-    maximumAge: 0
-  }
-  if (latitude = 56.8379199, longitude = 60.66073 ){
+
+  if (((latitude = 56.8379199), (longitude = 60.66073))) {
     //alert("you are almost home")
   }
-  const fs = require('fs')
-  appendFileSync('log.txt', accuracy, latitude, longitude, altitude, heading, speed);
-  console.log('The data was appended to log!');
 </script>
